@@ -14,7 +14,6 @@ You need:
 
 
 ## PART 1 : Download and install ubuntu ##
-------------------------------------------
 Follow the instruction at http://elinux.org/BeagleBoardUbuntu#eMMC:_BeagleBone_Black
 You should find everything to install the last version of ubuntu for BeagleBone.
 
@@ -40,7 +39,6 @@ temppwd
 ```
 
 ## PART 2 : Change the pc hostname users and passwords ##
----------------------------------------------------------
 Log on as administrator. You should still be connected with ubuntu login and just type:
 ```
 sudo -i
@@ -76,7 +74,6 @@ sudo rm -r /home/ubuntu
 ```
 
 ## PART 3 : Connect in ssh and add some color ##
-------------------------------------------------
 On your desktop computer, configure your ethernet connection to share internet. In the wired connection options, you should find a tab 'IPv4'. Select method 'Shared to other computers'. Then plug the cable and reboot the BeagleBone. Verify your BeagleBone has access to your computer: by typing:
 ```
 ifconfig eth0
@@ -105,7 +102,6 @@ source ~/.bashrc
 Colors will appear!
 
 ## PART 4 : Set the date correctly ##
--------------------------------------
 Even it seems useless, a correct date is the basic to avoid compatibility errors. First, install ntp on your BeagleBone (connected with minicom or by ssh):
 ```
 sudo apt-get install ntp
@@ -132,7 +128,6 @@ date
 ```
 
 ## PART 5 : Install the WiFi antenna ##
----------------------------------------
 
 ## Install usefull packages ##
 
