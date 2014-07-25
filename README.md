@@ -21,13 +21,13 @@ You should find everything to install the last version of ubuntu for BeagleBone.
 ## PART 2 : Set-up everything and log for the first time ##
 Plug the ethernet cable between both computers (if you don't have a ethernet cable, use a USB). Plug the debug cable. 
 On your computer install minicom:
-
+```
 sudo apt-get install minicom
-
+```
 Launch the software you have installed by double-clicking (Windows) or typing:
-
+```
 sudo minicom
-
+```
 Configure the software to run with 115200kB/s 8N1 (ctrl-a then z the p with minicom-
 Insert the microSD card in the BeagleBone Black and power on holding the S2 button. You should see the kernel starting in the terminal. Verify that the line "mmc0 is current device" is written somewhere in the beginning (otherwise, let the S2 button plugged a little longer in the beginning).
 Enter the default login:
