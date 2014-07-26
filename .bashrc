@@ -114,6 +114,9 @@ if ! shopt -oq posix; then
 fi
 eval "`dircolors -b`"
 
+export PATH=$HOME/bin:$PATH
+
+
 PS1='\
 \[\033[00m\][\
 \[\033[31m\]\u\

@@ -17,8 +17,10 @@ You need:
 Follow the instruction at http://elinux.org/BeagleBoardUbuntu#eMMC:_BeagleBone_Black
 You should find everything to install the last version of ubuntu for BeagleBone.
 
+**Congratulation! Your BeagleBone runs now on Ubuntu!**
+
 ## PART 2 : Set-up everything and log for the first time ##
-Plug the ethernet cable between both computers (if you don't have a ethernet cable, use a USB). Plug the debug cable. 
+Plug the ethernet cable between both computers (if you don't have a ethernet cable, use a USB). You can also plug it to an ethernet switch in your local network. Plug the debug cable. 
 On your computer install minicom:
 ```
 sudo apt-get install minicom
@@ -38,7 +40,9 @@ Enter the default password:
 temppwd
 ```
 
-## PART 2 : Change the pc hostname users and passwords ##
+**Congratulation! You are able to communicate with your BeagleBone!**
+
+## PART 3 : Change the pc hostname users and passwords ##
 Log on as administrator. You should still be connected with ubuntu login and just type:
 ```
 sudo -i
@@ -72,9 +76,11 @@ After the system reboot, you can log with your new name and password. All that r
 sudo userdel ubuntu
 sudo rm -r /home/ubuntu
 ```
+**Congratulation! You have created your own session on your BeagleBone!**
 
-## PART 3 : Connect in ssh and add some color ##
-On your desktop computer, configure your ethernet connection to share internet. In the wired connection options, you should find a tab 'IPv4'. Select method 'Shared to other computers'. Then plug the cable and reboot the BeagleBone. Verify your BeagleBone has access to your computer: by typing:
+
+## PART 4 : Connect in ssh and add some color ##
+If you have directly connected your BeagleBone and you computer via ethernet, configure your ethernet connection to share internet on your desktop computer. In the wired connection options, you should find a tab 'IPv4'. Select method 'Shared to other computers'. Then plug the cable and reboot the BeagleBone. Verify your BeagleBone has access to your computer: by typing:
 ```
 ifconfig eth0
 ```
@@ -101,7 +107,9 @@ source ~/.bashrc
 ```
 Colors will appear!
 
-## PART 4 : Set the date correctly ##
+**Congratulation! Your BeagleBone is now personnalized and accessible from local network!**
+
+## PART 5 : Set the date correctly ##
 Even it seems useless, a correct date is the basic to avoid compatibility errors. First, install ntp on your BeagleBone (connected with minicom or by ssh):
 ```
 sudo apt-get install ntp
@@ -126,14 +134,104 @@ Finally, if you reboot your card, you should be able to check if the date and ti
 ```
 date
 ```
+**Congratulation! Your BeagleBone has now its own watch!**
 
-## PART 5 : Install the WiFi antenna ##
+## PART 6 : Install the WiFi antenna ##
+Install compilation tools:
+```
+sudo apt-get update
+sudo apt-get install gcc make build-essential
+```
+Download the modified wifi driver sources:
+```
+git clone https://github.com/Gabs48/irobotique_tools
+```
+Download linux kernel sources:
+```
+cd irobotique_tools/
+sh get-kernel-src.sh
+```
+During the downloading script, please verify that everything is done correctly (downloading sources, downloading patches, copying sources, applying patches). In the end, a directory linux-headers-'your-kernel-version' should have been created. Compile the driver and pray god (this should be at least working for every kernel version until 3.13.0):
+```
+cd irobotique_tools/wifi_driver/
+make
+sudo make install
+```
+Restart the BeagleBone and verify the driver has been properly installed:
+```
+sudo shutdown -r now
+lsmod | grep mt7601Usta
+```
+If nothing appears, retry the installation or contact irobotique. Once the driver is installed, we have to configure Ubuntu to connect to the WiFi network. Enable the Wifi dongle with:
+```
+sudo ifconfig ra0 up
+```
+A green light should appear on you USB dongle. You can scan the WiFi network around you with:
+```
+iwlist scanning
+```
+Install some usefull tools:
+```
+sudo apt-get install wavemon connman
+```
+Connman is a light terminal network-manager. It connects your card to the network like the software represented by the toolbar on your desktop computer is doing. Open it with command line:
+```
+connmanctl
+```
+A prompt is openning. Enter successively those commands:
+```
+> enable wifi
+> scan wifi
+> services
+> agent on
+```
+Locate the name of the Wifi you are interested. The name of the service should be something like 'wifi_000000000000_4d49542d4450_managed_psk'. Locate also the name of your ethernet connection. This should be something like 'ethernet_9059af690fdb_cable'. Copy those names and type:
+```
+> connect wifi_000000000000_4d49542d4450_managed_psk
+> config wifi_000000000000_4d49542d4450_managed_psk --autoconnect yes
+> config ethernet_9059af690fdb_cable --autoconnect no
+```
+Enter all the needed informations about password, etc...  Verify that the programm says it is connected. (Note: connman can only autoconnect to one network in the same time, that's why we shall disable ethernet connection. But don't worry, this connection is still handled by Ubuntu itself so no need to involve connman in it).  Quit with:
+```
+> quit
+```
+Check everything is well set with the line:
+```
+sudo cat /var/lib/connman/your-wifi-connection-name/settings
+```
+Try your connection by checking if you have an IP adress with:
+```
+ifconfig ra0
+```
+Try your connection by pinging from your desktop computer, then establishing a ssh connection from your desktop computer:
+```
+ping your-ra0-ipV4-addr
+ssh my-user@your-ra0-ipV4-addr
+```
+Your Wifi link should be sufficient to allows a stable ssh session. You can monitor the connection and find the best place for your antenna with:
+```
+wavemon
+```
+Once, everything is set, time to verify, the autoconnection process. Restart your BeagleBone once again:
+```
+sudo shutdown -r now
+```
+Wait a few dozens of seconds and retry the series of commands:
+```
+ifconfig ra0
+ping your-ra0-ipV4-addr
+ssh my-user@your-ra0-ipV4-addr
+wavemon
+```
+In case of a deconnection, you can re-set it up manually with:
+```
+connmanctl
+> services
+> connect wifi_000000000000_4d49542d4450_managed_psk
+```
+**Congratulation! Your BeagleBone is now set to communicate through the air without any cable!**
 
-## Install usefull packages ##
+## PART 7 : Install ROS Indigo ##
 
-## Install ROS Indigo ##
-
-## Install Irobotique ROS packages ##
-
-## Set-up the Irobotique environment ##
+## PART 8 : Install and set-up Irobotique packages ##
  
