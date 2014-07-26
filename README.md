@@ -1,5 +1,5 @@
-Default instructions for a new installation with a beaglebone
-=============================================================
+Tutorial for Irobotique BeagleBone Set-up
+==========================================
 
 You need:
 --------
@@ -232,6 +232,16 @@ connmanctl
 **Congratulation! Your BeagleBone is now set to communicate through the air without any cable!**
 
 ## PART 7 : Install ROS Indigo ##
+TODO
+**Congratulation! You are now able to integrate your BeagleBone into a robot!**
 
 ## PART 8 : Install and set-up Irobotique packages ##
- 
+TODO
+**Congratulation! You can now communicate with ROS on your BeagleBone from everywhere in the world!**
+
+## PART 9 : Set-up RS232 connection with an arduino nano ##
+TODO
+Louis?
+
+## PART 10 : Write a ROS package to 
+TODO 
