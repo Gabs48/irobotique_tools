@@ -127,3 +127,9 @@ PS1='\
 \[\033[00m\]]\
 \[\033[00m\]\$ \
 '
+
+# ROS
+source /opt/ros/indigo/setup.bash
+export ROS_MASTER_URI=http://10.42.0.1:1234/
+hostsip=($(hostname -I))
+export ROS_IP=${hostsip[0]}
