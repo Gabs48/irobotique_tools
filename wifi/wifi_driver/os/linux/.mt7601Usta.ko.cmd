@@ -1,0 +1,1 @@
+cmd_/home/gabs48/irobotique_tools/wifi_driver/os/linux/mt7601Usta.ko := ld -r  -T /usr/src/linux-3.8.13-bone59/scripts/module-common.lds --build-id  -o /home/gabs48/irobotique_tools/wifi_driver/os/linux/mt7601Usta.ko /home/gabs48/irobotique_tools/wifi_driver/os/linux/mt7601Usta.o /home/gabs48/irobotique_tools/wifi_driver/os/linux/mt7601Usta.mod.o
